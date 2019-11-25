@@ -18,8 +18,7 @@ module.exports = () => {
   const player1Name = args._[0] || "Player 1";
   const player2Name = args._[1] || "Player 2";
   const game = init(player1Name, player2Name);
-  game.start();
-
+  
   rl.on("line", function(line) {
     const matches = /([0-8]{2}) ([0-8]{2})/gi.exec(line || "");
     if (matches && matches.length > 2) {

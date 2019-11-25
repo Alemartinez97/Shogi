@@ -15,7 +15,6 @@ describe("Game init", () => {
 
   it("Board pieces are initially placed", () => {
     const game = init();
-    game.start();
     const pieces = game.getBoard().getPieces();
     expect(pieces).toHaveLength(40);
     expect(game.getBoeardPositionAsString()).toEqual(INITIAL);
@@ -23,7 +22,6 @@ describe("Game init", () => {
 
   it("Board pieces after initial pawn move", () => {
     const game = init();
-    game.start();
     const pieces = game.getBoard().getPieces();
     expect(pieces).toHaveLength(40);
     game.move("52", [0, 1]);
@@ -33,7 +31,6 @@ describe("Game init", () => {
 
   it("Player cannot move pieces of another player", () => {
     const game = init();
-    game.start();
     const pieces = game.getBoard().getPieces();
     expect(pieces).toHaveLength(40);
     game.move("52", [0, 1]);
@@ -44,7 +41,6 @@ describe("Game init", () => {
 
   it("Player can take another piece", () => {
     const game = init();
-    game.start();
     const pieces = game.getBoard().getPieces();
     expect(pieces).toHaveLength(40);
     game.move("52", [0, 1]);
@@ -59,7 +55,6 @@ describe("Game init", () => {
 
   it("Player cannot move to non empty spot", () => {
     const game = init();
-    game.start();
     const pieces = game.getBoard().getPieces();
     expect(pieces).toHaveLength(40);
     game.move("50", [0, 1]);
@@ -70,7 +65,6 @@ describe("Game init", () => {
 
   it("Piece can return available movements", () => {
     const game = init();
-    game.start();
     game.move("22", [0, 1]);
     const bishop = game.getBoard().getPieceByPosition("11");
     expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
@@ -93,7 +87,6 @@ describe("Game init", () => {
 
   it("Piece can return available movements", () => {
     const game = init();
-    game.start();
     game.move("22", [0, 1]);
     const bishop = game.getBoard().getPieceByPosition("11");
     expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
