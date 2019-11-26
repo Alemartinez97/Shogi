@@ -1,7 +1,11 @@
 const Piece = require("../models/Piece");
+const GoldGeneral = require("./GoldGeneral");
+
 class Lance extends Piece {
   constructor(playerIndex, position) {
     super(playerIndex, position);
+
+    this.promoteTo = GoldGeneral;
     this.movements = [
       [0, 1],
       [0, 2],

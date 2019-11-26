@@ -1,11 +1,8 @@
 const Piece = require("../models/Piece");
-const RookPromoted = require("./RookPromoted");
 
-class Rook extends Piece {
+class RookPromoted extends Piece {
   constructor(playerIndex, position) {
     super(playerIndex, position);
-
-    this.promoteTo = RookPromoted;
     this.movements = [
       [0, 1],
       [0, 2],
@@ -38,11 +35,17 @@ class Rook extends Piece {
       [0, -5],
       [0, -6],
       [0, -7],
-      [0, -8]
+      [0, -8],
+      [-1, 1],
+      [0, 1],
+      [1, 1],
+      [-1, 0],
+      [1, 0],
+      [0, -1]
     ];
   }
   getShortName() {
-    return `${this.playerIndex}R_`;
+    return `${this.playerIndex}*R`;
   }
 }
-module.exports = Rook;
+module.exports = RookPromoted;

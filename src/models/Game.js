@@ -9,6 +9,8 @@ class Game {
     this.player1 = new Player(0, player1Name);
     this.player2 = new Player(1, player2Name);
     this.playerInTurn = this.player1;
+
+    this.pieceToPromote = null;
   }
 
   getPlayers() {
@@ -32,6 +34,22 @@ class Game {
     const [x1, y1] = getXYFromPositition(toPosition);
     const movement = [x1 - x, y1 - y];
     return this.move(fromPosition, movement);
+  }
+
+
+  promotePiece(promote) {
+    if (promote && this.pieceToPromote) {
+      const piece = this.pieceToPromote;
+      const newPosition = piece.getPosition();
+      this.board.removePiece(newPosition);
+      const PromotedClass = piece.promoteTo;
+      const newPromotedPiece = new PromotedClass(
+        piece.getPlayerIndex(),
+        newPosition
+      );
+      this.board.addPiece(newPromotedPiece);
+    }
+    this.pieceToPromote = null;
   }
 
   move(position, movement) {
@@ -66,6 +84,24 @@ class Game {
       }
     }
     piece.setPosition(newPosition);
+    this.pieceToPromote = null;
+    if (playerIndex !== 1) {
+      if (yy >= 6) {
+        console.log(
+          "¿Desea promocionar? Introdusca y si es afirmativo, de lo contario n"
+        );
+        this.pieceToPromote = piece;
+        return;
+      }
+    } else {
+      if (yy <= 2) {
+        console.log(
+          "¿Desea promocionar? Introdusca y si es afirmativo, de lo contario n"
+        );
+        this.pieceToPromote = piece;
+      }
+    }
+
     this.skipTurn();
   }
 
@@ -94,7 +130,7 @@ class Game {
   }
 
   getBoeardPositionAsStringWithCoords() {
-    const pieces = this.getBoard().getPieces();
+    this.getBoard().getPieces();
     const row = "    0   1   2   3   4   5   6   7   8 ";
     const row1 = "  +-----------------------------------+";
     // const currentBoard = this.getBoeardPositionAsString().replace(/_/g, ' ');

@@ -1,11 +1,11 @@
 const Piece = require("../models/Piece");
-const BishopPromoted = require("./BishopPromoted");
+const GoldGeneral = require("./GoldGeneral");
 
-class Bishop extends Piece {
+class BishopPromoted extends Piece {
   constructor(playerIndex, position) {
     super(playerIndex, position);
 
-    this.promoteTo = BishopPromoted;
+    this.promoteTo = GoldGeneral;
     this.movements = [
       [1, -1],
       [2, -2],
@@ -38,16 +38,22 @@ class Bishop extends Piece {
       [-5, -5],
       [-6, -6],
       [-7, -7],
-      [-8, -8]
+      [-8, -8],
+      [-1, 1],
+      [0, 1],
+      [1, 1],
+      [-1, 0],
+      [1, 0],
+      [0, -1]
     ];
   }
 
   getShortName() {
-    return `${this.playerIndex}B_`;
+    return `${this.playerIndex}*B`;
   }
   getMovements() {
     return this.movements;
   }
 }
 
-module.exports = Bishop;
+module.exports = BishopPromoted;

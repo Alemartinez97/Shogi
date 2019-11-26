@@ -4,7 +4,9 @@ const {
   INITIAL,
   FIRST_PAWN_MOVED,
   GG_MOVED_UNTIL_REACH_PAWN,
-  PAWN_MOVED_UNTIL_TAKE
+  PAWN_MOVED_UNTIL_TAKE,
+  PAWN_PROMOTED,
+  PAWN_NOT_PROMOTED
 } = require("../board-position.js");
 
 describe("Game init", () => {
@@ -64,39 +66,39 @@ describe("Game init", () => {
   });
 
   it("Piece can return available movements", () => {
-    const game = init();
-    game.move("22", [0, 1]);
-    const bishop = game.getBoard().getPieceByPosition("11");
+   const game = init();
+    game.move("62", [0, 1]);
+    const bishop = game.getBoard().getPieceByPosition("71");
     expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
-      [1, 1],
-      [2, 2],
-      [3, 3],
-      [4, 4],
-      [5, 5]
+      [-1, 1],
+      [-2, 2],
+      [-3, 3],
+      [-4, 4],
+      [-5, 5]
     ]);
-    const rook = game.getBoard().getPieceByPosition("71");
+    const rook = game.getBoard().getPieceByPosition("11");
     expect(rook.getAvailableMovements(game.getBoard())).toEqual([
       [-1, 0],
-      [-2, 0],
-      [-3, 0],
-      [-4, 0],
-      [-5, 0],
-      [1, 0]
+      [1, 0],
+      [2, 0],
+      [3, 0],
+      [4, 0],
+      [5, 0]
     ]);
   });
 
-  it("Piece can return available movements", () => {
-    const game = init();
-    game.move("22", [0, 1]);
-    const bishop = game.getBoard().getPieceByPosition("11");
-    expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
-      [1, 1],
-      [2, 2],
-      [3, 3],
-      [4, 4],
+  //it("Piece can return available movements", () => {
+    //const game = init();
+    //game.move("22", [0, 1]);
+    //const bishop = game.getBoard().getPieceByPosition("11");
+    //expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
+      //[1, 1],
+      //[2, 2],
+      //[3, 3],
+      //[4, 4],
       [5, 5]
-    ]);
-  });
+    //]);
+  //});
 
   it("Invalid movement", () => {
     const game = init();
@@ -131,5 +133,33 @@ describe("Game init", () => {
     expect(game.getBoard().arePiecesInSameLine("15", "11")).toEqual(true);
     expect(game.getBoard().arePiecesInSameLine("44", "84")).toEqual(true);
     expect(game.getBoard().arePiecesInSameLine("34", "11")).toEqual(false);
+  });
+
+  it("Piece promoved", () => {
+    const game = init();
+    game.skipTurn();
+    game.move("06", [0, -1]);
+    game.skipTurn();
+    game.move("05", [0, -1]);
+    game.skipTurn();
+    game.move("04", [0, -1]);
+    game.skipTurn();
+    game.move("03", [0, -1]);
+    game.promotePiece(true);
+    expect(game.getBoeardPositionAsString()).toEqual(PAWN_PROMOTED);
+  });
+
+  it("Piece not promoved", () => {
+    const game = init();
+    game.skipTurn();
+    game.move("06", [0, -1]);
+    game.skipTurn();
+    game.move("05", [0, -1]);
+    game.skipTurn();
+    game.move("04", [0, -1]);
+    game.skipTurn();
+    game.move("03", [0, -1]);
+    game.promotePiece(false);
+    expect(game.getBoeardPositionAsString()).toEqual(PAWN_NOT_PROMOTED);
   });
 });

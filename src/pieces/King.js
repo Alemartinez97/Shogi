@@ -1,4 +1,5 @@
 const Piece = require('../models/Piece');
+
 class King extends Piece {
   constructor(playerIndex,position) {
     super(playerIndex,position);

@@ -7,6 +7,7 @@
 * Movimientos validos dentro del tablero.
 * Manejo de turnos.
 * Tablero por consola.
+* Promoción de Piezas
 * Unit Testing.
 * Implementacion de Programacion Orientada a Objetos.
 
