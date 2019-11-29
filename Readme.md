@@ -8,6 +8,9 @@
 * Manejo de turnos.
 * Tablero por consola.
 * Promoción de Piezas
+* Mostrar las piezas capturadas
+* Jaque
+* Jaque Mate (en progreso)
 * Unit Testing.
 * Implementacion de Programacion Orientada a Objetos.
 
@@ -17,7 +20,7 @@
 
 ## Pasos para jugar:
     > npm install
-    > ./bin/shogi Franco Nicolas
+    > ./bin/shogi Player-0 Player-1
 
 ## Pasos para ejecutar los tests:
     > npm install

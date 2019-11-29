@@ -70,11 +70,12 @@ ___ 1B_ ___ ___ ___ ___ ___ 1R_ ___
 1L_ 1N_ 1S_ 1G_ 1K_ 1G_ 1S_ 1N_ 1L_
 `;
 
+
 module.exports = {
   INITIAL,
   FIRST_PAWN_MOVED,
   GG_MOVED_UNTIL_REACH_PAWN,
   PAWN_MOVED_UNTIL_TAKE,
   PAWN_PROMOTED,
-  PAWN_NOT_PROMOTED
+  PAWN_NOT_PROMOTED,
 };

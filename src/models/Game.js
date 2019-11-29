@@ -1,4 +1,5 @@
 const Player = require("./Player");
+const King = require("../pieces/King");
 
 const getXYFromPositition = position => position.split("").map(n => Number(n));
 
@@ -35,7 +36,6 @@ class Game {
     const movement = [x1 - x, y1 - y];
     return this.move(fromPosition, movement);
   }
-
 
   promotePiece(promote) {
     if (promote && this.pieceToPromote) {
@@ -76,6 +76,9 @@ class Game {
     const yy = parseInt(y) + y1;
     const newPosition = `${xx}${yy}`;
     const pieceInNewPosition = this.board.getPieceByPosition(newPosition);
+    if (this.isChecked(this.playerInTurn) === true) {
+      console.log("Check");
+    }
     if (pieceInNewPosition) {
       if (playerIndex === pieceInNewPosition.getPlayerIndex()) {
         return;
@@ -87,24 +90,18 @@ class Game {
     this.pieceToPromote = null;
     if (playerIndex !== 1) {
       if (yy >= 6) {
-        console.log(
-          "¿Desea promocionar? Introdusca y si es afirmativo, de lo contario n"
-        );
+        console.log("Do you want to promote? Enter y if you do, otherwise n");
         this.pieceToPromote = piece;
         return;
       }
     } else {
       if (yy <= 2) {
-        console.log(
-          "¿Desea promocionar? Introdusca y si es afirmativo, de lo contario n"
-        );
+        console.log("Do you want to promote? Enter y if you do, otherwise n");
         this.pieceToPromote = piece;
       }
     }
-
     this.skipTurn();
   }
-
   skipTurn() {
     if (this.playerInTurn === this.player2) {
       this.playerInTurn = this.player1;
@@ -140,6 +137,49 @@ class Game {
       .map((line, index) => (line ? `${index - 1} |${line}|` : line));
     return row + "\n" + row1 + lines.join("\n") + row1;
   }
+
+  isChecked(player) {
+    const playerKing = this.board.pieces.find(it => {
+      return it instanceof King && it.getPlayerIndex() === player.number;
+    });
+    for (let i = 0; i < this.board.pieces.length; i++) {
+      const piece = this.board.pieces[i];
+
+      if (piece.getPlayerIndex() !== player.number) {
+        for (let j = 0; j < piece.movements.length; j++) {
+          const movement = piece.movements[j];
+          const newPosition = this.board.getNewPositionFromPositionAndMovement(
+            piece.getPosition(),
+            movement,
+            piece.getPlayerIndex() === 0 ? 1 : -1
+          );
+          if (playerKing.getPosition() === newPosition) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+  // isCheckedMate(player) {
+  //   for (let i = 0; i < this.board.pieces.length; i++) {
+  //     const piece = this.board.pieces[i];
+
+  //     if (piece.getPlayerIndex() !== player.number) {
+  //       for (let j = 0; j < piece.movements.length; j++) {
+  //         const movement = piece.movements[j];
+  //         this.move(piece.getPosition(), movement);
+  //         if (!this.isChecked(player)) {
+  //           return false;
+  //         }
+  //         this.move(piece.getPosition(), [movement * -1, movement * -1]);
+  //       }
+  //     }
+  //   }
+
+  //   return true;
+  // }
 }
 
 module.exports = Game;

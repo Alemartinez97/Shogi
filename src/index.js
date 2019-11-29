@@ -10,7 +10,9 @@ const rl = readline.createInterface({
 const nextStep = game => {
   console.log("Player in turn:", game.getPlayerInTurn().name);
   console.log(game.getBoeardPositionAsStringWithCoords());
-  console.log("Please enter 'row/col from' and 'row/col to' coords. For example '05 06'");
+  console.log(
+    "Please enter 'row/col from' and 'row/col to' coords. For example '05 06'"
+  );
 };
 
 module.exports = () => {
@@ -18,7 +20,6 @@ module.exports = () => {
   const player1Name = args._[0] || "Player 1";
   const player2Name = args._[1] || "Player 2";
   const game = init(player1Name, player2Name);
-
   rl.on("line", function(line) {
     if (game.pieceToPromote) {
       // si estamos esperando y/n para promocionar
@@ -50,7 +51,7 @@ module.exports = () => {
   nextStep(game);
 
   rl.on("close", function() {
-    console.log("\GAME ENDED !!!");
+    console.log("GAME ENDED !!!");
     process.exit(0);
   });
 };

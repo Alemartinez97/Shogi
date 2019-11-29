@@ -6,7 +6,7 @@ const {
   GG_MOVED_UNTIL_REACH_PAWN,
   PAWN_MOVED_UNTIL_TAKE,
   PAWN_PROMOTED,
-  PAWN_NOT_PROMOTED
+  PAWN_NOT_PROMOTED,
 } = require("../board-position.js");
 
 describe("Game init", () => {
@@ -66,7 +66,7 @@ describe("Game init", () => {
   });
 
   it("Piece can return available movements", () => {
-   const game = init();
+    const game = init();
     game.move("62", [0, 1]);
     const bishop = game.getBoard().getPieceByPosition("71");
     expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
@@ -87,18 +87,43 @@ describe("Game init", () => {
     ]);
   });
 
-  //it("Piece can return available movements", () => {
-    //const game = init();
-    //game.move("22", [0, 1]);
-    //const bishop = game.getBoard().getPieceByPosition("11");
-    //expect(bishop.getAvailableMovements(game.getBoard())).toEqual([
-      //[1, 1],
-      //[2, 2],
-      //[3, 3],
-      //[4, 4],
-      [5, 5]
-    //]);
-  //});
+  it("Check player 2", () => {
+    const game = init();
+    game.move("42", [0, 1]);
+    game.skipTurn();
+    game.move("43", [0, 1]);
+    game.skipTurn();
+    game.move("44", [0, 1]);
+    game.skipTurn();
+    game.move("45", [0, 1]);
+    game.move("46", [0, 1]);
+    expect(game.isChecked(game.player2)).toBe(true);
+  });
+
+  it("Check player 1", () => {
+    const game = init();
+    game.skipTurn();
+    game.move("46", [0, -1]);
+    game.skipTurn();
+    game.move("45", [0, -1]);
+    game.skipTurn();
+    game.move("44", [0, -1]);
+    game.skipTurn();
+    game.move("43", [0, -1]);
+    game.skipTurn();
+    game.move("42", [0, -1]);
+    expect(game.isChecked(game.player1)).toBe(true);
+  });
+
+  // it("Check Mate player 1", () => {
+  //   const game = init();
+  //   expect(game.isCheckedMate(game.player1)).toEqual();
+  // });
+
+  // it("Check Mate player 2", () => {
+  //   const game = init();
+  //   expect(game.isCheckedMate(game.player2)).toEqual();
+  // });
 
   it("Invalid movement", () => {
     const game = init();
@@ -135,7 +160,7 @@ describe("Game init", () => {
     expect(game.getBoard().arePiecesInSameLine("34", "11")).toEqual(false);
   });
 
-  it("Piece promoved", () => {
+  it("Piece promoted", () => {
     const game = init();
     game.skipTurn();
     game.move("06", [0, -1]);
@@ -149,7 +174,7 @@ describe("Game init", () => {
     expect(game.getBoeardPositionAsString()).toEqual(PAWN_PROMOTED);
   });
 
-  it("Piece not promoved", () => {
+  it("Piece not promoted", () => {
     const game = init();
     game.skipTurn();
     game.move("06", [0, -1]);

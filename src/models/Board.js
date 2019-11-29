@@ -3,6 +3,7 @@ const getXYFromPositition = position => position.split("").map(n => Number(n));
 class Board {
   constructor() {
     this.pieces = [];
+    this.takenPieces = [];
   }
 
   getPieces() {
@@ -23,11 +24,19 @@ class Board {
   removePiece(position) {
     const piece = this.getPieceByPosition(position);
     this.pieces.splice(this.pieces.indexOf(piece), 1);
+    this.takenPieces.push(piece);
+    console.log("piesas capturadas",this.takenPieces);
   }
 
-  canMoveTo(fromPosition, movement) {
+  getNewPositionFromPositionAndMovement(position, movement, direction) {
+    const [x, y] = getXYFromPositition(position);
+    const toPosition = `${x + movement[0]}${y + movement[1] * direction}`;
+    return toPosition;
+  }
+
+  canMoveTo(fromPosition, movement, direction) {
     const [x, y] = getXYFromPositition(fromPosition);
-    const toPosition = `${x + movement[0]}${y + movement[1]}`;
+    const toPosition = this.getNewPositionFromPositionAndMovement(fromPosition, movement, direction);
     const [x1, y1] = getXYFromPositition(toPosition);
     let can = true;
     if (can) {

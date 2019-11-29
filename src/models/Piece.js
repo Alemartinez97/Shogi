@@ -40,7 +40,7 @@ class Piece {
       for (var j = 0; j < this.movements.length; j++) {
         const movement = this.movements[j];
 
-        if (board.canMoveTo(this.position, movement)) {
+        if (board.canMoveTo(this.position, movement, this.getPlayerIndex() === 0 ? 1 : -1)) {
           moves.push(movement);
         }
       }
