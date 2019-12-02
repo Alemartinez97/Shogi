@@ -25,7 +25,6 @@ class Board {
     const piece = this.getPieceByPosition(position);
     this.pieces.splice(this.pieces.indexOf(piece), 1);
     this.takenPieces.push(piece);
-    console.log("piesas capturadas",this.takenPieces);
   }
 
   getNewPositionFromPositionAndMovement(position, movement, direction) {
@@ -36,7 +35,11 @@ class Board {
 
   canMoveTo(fromPosition, movement, direction) {
     const [x, y] = getXYFromPositition(fromPosition);
-    const toPosition = this.getNewPositionFromPositionAndMovement(fromPosition, movement, direction);
+    const toPosition = this.getNewPositionFromPositionAndMovement(
+      fromPosition,
+      movement,
+      direction
+    );
     const [x1, y1] = getXYFromPositition(toPosition);
     let can = true;
     if (can) {

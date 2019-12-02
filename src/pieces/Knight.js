@@ -11,6 +11,9 @@ class Knight extends Piece {
       [1, 2]
     ];
   }
+  getName() {
+    return 'Knight';
+  }
   getShortName() {
     return `${this.playerIndex}N_`;
   }

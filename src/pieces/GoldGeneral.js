@@ -12,6 +12,9 @@ class GoldGeneral extends Piece {
       [0, -1]
     ];
   }
+  getName() {
+    return 'GoldGeneral';
+  }
   getShortName() {
     return `${this.playerIndex}G_`;
   }

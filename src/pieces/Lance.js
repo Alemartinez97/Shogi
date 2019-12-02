@@ -17,6 +17,9 @@ class Lance extends Piece {
       [0, 8]
     ];
   }
+  getName() {
+    return 'Lance';
+  }
   getShortName() {
     return `${this.playerIndex}L_`;
   }

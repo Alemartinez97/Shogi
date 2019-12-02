@@ -41,6 +41,9 @@ class Rook extends Piece {
       [0, -8]
     ];
   }
+  getName() {
+    return 'Rook';
+  }
   getShortName() {
     return `${this.playerIndex}R_`;
   }

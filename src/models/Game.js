@@ -52,6 +52,24 @@ class Game {
     this.pieceToPromote = null;
   }
 
+  introPiece(pieceName, position) {
+    if (!this.board.getPieceByPosition(position)) {
+      const pieceIntro = this.board.takenPieces.find(piece => {
+        return (
+          pieceName.toLowerCase() === piece.getName().toLowerCase() &&
+          piece.getPlayerIndex() === this.playerInTurn.number
+        );
+      });
+      this.board.takenPieces.splice(
+        this.board.takenPieces.indexOf(pieceIntro),
+        1
+      );
+      pieceIntro.setPosition(position);
+      this.board.addPiece(pieceIntro);
+      this.skipTurn();
+    }
+  }
+
   move(position, movement) {
     //TODO: Hacer validacion
     const playerIndex = this.playerInTurn.number;
@@ -78,7 +96,11 @@ class Game {
     const pieceInNewPosition = this.board.getPieceByPosition(newPosition);
     if (this.isChecked(this.playerInTurn) === true) {
       console.log("Check");
+      if (this.isCheckedMate(this.playerInTurn) === true) {
+        console.log("CheckMate");
+      }
     }
+
     if (pieceInNewPosition) {
       if (playerIndex === pieceInNewPosition.getPlayerIndex()) {
         return;
@@ -162,24 +184,30 @@ class Game {
 
     return false;
   }
-  // isCheckedMate(player) {
-  //   for (let i = 0; i < this.board.pieces.length; i++) {
-  //     const piece = this.board.pieces[i];
+  isCheckedMate(player) {
+    for (let i = 0; i < this.board.pieces.length; i++) {
+      const piece = this.board.pieces[i];
 
-  //     if (piece.getPlayerIndex() !== player.number) {
-  //       for (let j = 0; j < piece.movements.length; j++) {
-  //         const movement = piece.movements[j];
-  //         this.move(piece.getPosition(), movement);
-  //         if (!this.isChecked(player)) {
-  //           return false;
-  //         }
-  //         this.move(piece.getPosition(), [movement * -1, movement * -1]);
-  //       }
-  //     }
-  //   }
+      if (piece.getPlayerIndex() === player.number) {
+        for (let j = 0; j < piece.movements.length; j++) {
+          const movement = piece.movements[j];
+          this.move(piece.getPosition(), movement);
 
-  //   return true;
-  // }
+          if (!this.isChecked(player)) {
+            return false;
+          }
+          const newPosition = this.board.getNewPositionFromPositionAndMovement(
+            piece.getPosition(),
+            movement,
+            piece.getPlayerIndex() === 0 ? 1 : -1
+          );
+          this.move(newPosition, [movement * -1, movement * -1]);
+        }
+      }
+    }
+
+    return true;
+  }
 }
 
 module.exports = Game;

@@ -50,4 +50,10 @@ const INITIAL_PIECES = [
   { player: 1, model: Lance, position: "88" }
 ];
 
-module.exports = INITIAL_PIECES;
+const ENDING_PIECES = [
+  { player: 0, model: GoldGeneral, position: "30" },
+  { player: 0, model: King, position: "41" },
+  { player: 1, model: King, position: "42" },
+];
+
+module.exports = {INITIAL_PIECES,ENDING_PIECES};

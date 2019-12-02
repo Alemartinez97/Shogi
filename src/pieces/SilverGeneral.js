@@ -11,6 +11,9 @@ class SilverGeneral extends Piece {
       [1, -1]
     ];
   }
+  getName() {
+    return 'SilverGeneral';
+  }
   getShortName() {
     return `${this.playerIndex}S_`;
   }

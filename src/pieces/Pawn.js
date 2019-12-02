@@ -8,7 +8,9 @@ class Pawn extends Piece {
     this.promoteTo = GoldGeneral;
     this.movements = [[0, 1]];
   }
-
+  getName() {
+    return 'Pawn';
+  }
   getShortName() {
     return `${this.playerIndex}P_`;
   }

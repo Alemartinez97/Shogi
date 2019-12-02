@@ -14,6 +14,9 @@ class King extends Piece {
       [1, -1]
     ];
   }
+  getName() {
+    return 'King';
+  }
   getShortName() {
     return `${this.playerIndex}K_`;
   }

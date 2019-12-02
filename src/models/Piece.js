@@ -1,5 +1,3 @@
-const Board = require("./Board");
-
 class Piece {
   constructor(playerIndex, position) {
     this.position = position;

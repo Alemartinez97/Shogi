@@ -1,5 +1,5 @@
 const Game = require("../models/Game");
-const init = require("../app.js");
+const { init, initFromPosition } = require("../app.js");
 const {
   INITIAL,
   FIRST_PAWN_MOVED,
@@ -7,6 +7,8 @@ const {
   PAWN_MOVED_UNTIL_TAKE,
   PAWN_PROMOTED,
   PAWN_NOT_PROMOTED,
+  CHEQUED_MATE_PLAYER_2,
+  PAWN_INTRODUCED
 } = require("../board-position.js");
 
 describe("Game init", () => {
@@ -114,16 +116,10 @@ describe("Game init", () => {
     game.move("42", [0, -1]);
     expect(game.isChecked(game.player1)).toBe(true);
   });
-
-  // it("Check Mate player 1", () => {
-  //   const game = init();
-  //   expect(game.isCheckedMate(game.player1)).toEqual();
-  // });
-
-  // it("Check Mate player 2", () => {
-  //   const game = init();
-  //   expect(game.isCheckedMate(game.player2)).toEqual();
-  // });
+  it("CheckMate player 2", () => {
+    const game = initFromPosition(CHEQUED_MATE_PLAYER_2);
+    expect(game.isCheckedMate(game.player2)).toEqual(true);
+  });
 
   it("Invalid movement", () => {
     const game = init();
@@ -158,6 +154,18 @@ describe("Game init", () => {
     expect(game.getBoard().arePiecesInSameLine("15", "11")).toEqual(true);
     expect(game.getBoard().arePiecesInSameLine("44", "84")).toEqual(true);
     expect(game.getBoard().arePiecesInSameLine("34", "11")).toEqual(false);
+  });
+
+  it("Intro Piece", () => {
+    const game = init();
+    game.move("02", [0, 1]);
+    game.move("06", [0, -1]);
+
+    game.move("03", [0, 1]);
+    game.move("05", [0, -1]);
+
+    game.introPiece("Pawn", "02");
+    expect(game.getBoeardPositionAsString()).toEqual(PAWN_INTRODUCED);
   });
 
   it("Piece promoted", () => {

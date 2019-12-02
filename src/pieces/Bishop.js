@@ -42,9 +42,14 @@ class Bishop extends Piece {
     ];
   }
 
+  getName() {
+    return 'Bishop';
+  }
+  
   getShortName() {
     return `${this.playerIndex}B_`;
   }
+  
   getMovements() {
     return this.movements;
   }

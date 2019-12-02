@@ -9,8 +9,9 @@
 * Tablero por consola.
 * Promoción de Piezas
 * Mostrar las piezas capturadas
+* Introducir piezas
 * Jaque
-* Jaque Mate (en progreso)
+* Jaque Mate 
 * Unit Testing.
 * Implementacion de Programacion Orientada a Objetos.
 
